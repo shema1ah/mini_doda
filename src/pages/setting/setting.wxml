@@ -1,0 +1,16 @@
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back iconColor="black" background="#FFDE55">设置</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight}}px;">
+    <view class="line" style="height:12px"></view>
+    <view class="nav" bindtap='clear'>清除缓存</view>
+    <view class="line"></view>
+    <view class="list">
+      <button class="resetBtn item clearfix" open-type="share">推荐给好友<view class="item-img"></view></button>
+      <button class="resetBtn item clearfix" data-action="feedback" open-type="getUserInfo" bindgetuserinfo="getUserInfo">意见反馈<view hover-class="press" class="item-img"></view></button>
+      <view class="item clearfix" bindtap="goAbout">关于哆哒<view hover-class="press" class="item-img"></view></view>
+      <view class="item clearfix" bindtap="goProtocol">平台协议<view hover-class="press" class="item-img"></view></view>
+    </view>
+    <button class="resetBtn loginOut" hover-class="press" data-action="loginOut" open-type="getUserInfo" bindgetuserinfo="getUserInfo">{{login?'重新登录':'登录'}}</button>
+  </view>
+</view>

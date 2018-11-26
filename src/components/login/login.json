@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents":{
+    "goBack":"../../components/goBack/goBack"
+  }
+}

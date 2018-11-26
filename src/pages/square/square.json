@@ -1,0 +1,6 @@
+{
+	"usingComponents":{
+    "open":"../../components/open/open",
+    "post":"../../components/post/post"
+  }
+}

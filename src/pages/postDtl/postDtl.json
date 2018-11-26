@@ -1,0 +1,8 @@
+{
+  "usingComponents":{
+    "back":"../../components/goBack/goBack",
+    "open":"../../components/open/open",
+    "comment":"../../components/comment/comment"
+  },
+  "onReachBottomDistance":350
+}

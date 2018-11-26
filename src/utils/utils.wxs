@@ -1,0 +1,164 @@
+/* 阿拉伯数字转汉字 */
+var numToChinese = function (val) {
+  if (!val) {
+    return 0
+  }
+  val = (typeof val == 'string') && val.constructor == 'String' ? val : val.toString()
+  var numAry = val.split('');
+  if (numAry.length > 4) {
+    numAry = numAry.slice(0, -3)
+    var thousand = numAry.pop();
+    thousand = thousand == 0 ? '' : '.' + thousand;
+    val = numAry.join('') + thousand + 'w'
+  }
+  return val
+}
+var formatTime = function (data) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+var formatNumber = function (n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
+
+var getDateDiff = function (dateTimeStamp) {
+  var minute = 1000 * 60;
+  var hour = minute * 60;
+  var day = hour * 24;
+  var halfamonth = day * 15;
+  var month = day * 30;
+  var now = getDate().getTime();
+  var diffValue = now - dateTimeStamp;
+  if (diffValue < 0) {
+    return;
+  }
+  var monthC = diffValue / month;
+  var weekC = diffValue / (7 * day);
+  var dayC = diffValue / day;
+  var hourC = diffValue / hour;
+  var minC = diffValue / minute;
+  var result
+  if (monthC >= 1) {
+    result = "" + parseInt(monthC) + "月前";
+  } else if (weekC >= 1) {
+    result = "" + parseInt(weekC) + "周前";
+  } else if (dayC >= 1) {
+    result = "" + parseInt(dayC) + "天前";
+  } else if (hourC >= 1) {
+    result = "" + parseInt(hourC) + "小时前";
+  } else if (minC >= 1) {
+    result = "" + parseInt(minC) + "分钟前";
+  } else {
+    result = "刚刚";
+  }
+
+  return result;
+}
+
+//转日期
+var formatTimeTwo = function (number, format) {
+
+  var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
+  var returnArr = [];
+
+  var date = getDate(number);
+  returnArr.push(date.getFullYear());
+  returnArr.push(formatNumber(date.getMonth() + 1));
+  returnArr.push(formatNumber(date.getDate()));
+
+  returnArr.push(formatNumber(date.getHours()));
+  returnArr.push(formatNumber(date.getMinutes()));
+  returnArr.push(formatNumber(date.getSeconds()));
+  formateArr.forEach(function (item, i) {
+    format = format.replace(item, returnArr[i]);
+  });
+  return format;
+}
+/* 时间全转化 */
+var formatTimeFull = function (time, option) {
+  // time = +time * 1000
+  var d = getDate(time)
+  var now = getDate()
+
+  var diff = (now - d) / 1000
+
+  if (diff < 30) {
+    return '刚刚'
+  } else if (diff < 3600) {
+    // less 1 hour
+    return Math.ceil(diff / 60) + '分钟前'
+  } else if (diff < 3600 * 24) {
+    return Math.ceil(diff / 3600) + '小时前'
+  } else if (diff < 3600 * 24 * 2) {
+    return '1天前'
+  }
+  if (option) {
+    return parseTime(time, option)
+  } else {
+    return (
+      /* d.getFullYear() +'年' +  */parseInt(d.getMonth() +1) +'-' +d.getDate()
+      /* +
+           d.getHours() +
+           '时' +
+           d.getMinutes() +
+           '分' */
+    )
+  }
+}
+/* 排行时间转化 */
+var orderTime = function (str) {
+  if(!str)return 
+  str = str.replace(',','-')
+  var strAry = str.split('-');
+  return strAry[0]+'月'+strAry[1]+'日~'+strAry[2]+'月'+strAry[3]+'日'
+}
+/* 数据截取 */
+var arraySlice = function (ary,strIndex,endIndex) {
+  ary= ary || []
+  strIndex = strIndex || 0
+  var res = endIndex? ary.slice(strIndex,endIndex):ary.slice(strIndex)
+  return res
+}
+/* 
+  签到天数计算
+  返回str字符串用作class展示
+ */
+
+var checkInDay= function (i,cur) {
+  i += 1
+  var str=''
+  if(cur<7){
+    if(i<cur){
+      str = 'checked'
+    }else if(i===cur){
+      str = 'cur'
+    }
+  }else{
+    if(i<cur&&i<7){
+      str = 'checked'
+    }else if(i===7){
+      str = 'cur'
+    }
+  }
+  return str
+}
+module.exports = {
+  formatTime: formatTime,
+  formatTimeTwo: formatTimeTwo,
+  formatTimeFull: formatTimeFull,
+  formatNumber: formatNumber,
+  getDateDiff: getDateDiff,
+  numToChinese: numToChinese,
+  orderTime:orderTime,
+  arraySlice:arraySlice,
+  checkInDay:checkInDay
+}

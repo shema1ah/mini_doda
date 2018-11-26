@@ -1,0 +1,84 @@
+<!-- index.wxml -->
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <view class="top clearfix" style="padding-top:{{systemHeight+3}}px;height:{{systemHeight+navHeight-2}}px;line-height:{{navHeight}}px">
+    <view class="top-content clearfix">
+      <view class="search" bindtap="search">
+        <image bindtap="search" src="../../images/square/search.png" />
+      </view>
+      <input class="input" value="{{content}}" placeholder='搜索全世界的精彩' focus="{{focus}}" confirm-type="done" bindinput="input" bindblur="inputBlur" bindconfirm="search" />
+      <view class="cancel" bindtap="back">取消</view>
+    </view>
+  </view>
+  <view class="ser" style="margin-top:{{systemHeight+navHeight+6}}px;">
+    <block wx:if="{{resShow}}">
+      <view class="rtsTopic">
+        <view class="rtsTopic-title clearfix">相关话题
+          <view class="rtsTopic-more" bindtap="moreRtsTopic">更多</view>
+        </view>
+        <view class="rtsTopic-list clearfix">
+          <block wx:if="{{rtsTopic.length!==0}}">
+            <view class="rtsTopic-item" bindtap="goTopicDtl" data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{utils.arraySlice(rtsTopic,0,3)}}" wx:key="{{index}}">
+              <view class="rtsTopic-img">
+                <image src="{{item.avgUrl}}" />
+                <view class="rtsTopic-count">阅读：{{utils.numToChinese(item.viewCount)}}</view>
+              </view>
+              {{item.topicName}}
+            </view>
+          </block>
+          <block wx:else>暂无相关话题！</block>
+        </view>
+      </view>
+      <view class="rtsPost">
+        <view class="rtsPost-title">
+          <text>相关帖子</text>
+        </view>
+        <post bind:postCb="postCb" list="{{rtsPost}}"></post>
+      </view>
+    </block>
+    <block wx:elif="{{moreShow}}">
+      <focusList list="{{rtsTopic}}"></focusList>
+    </block>
+    <block wx:else>
+      <view class="history">
+        <view class="history-title">搜索历史</view>
+        <view class="history-list">
+          <block wx:if="{{history.length!==0}}">
+            <view bindtap="tapSearch" data-name="{{item.topicName}}" wx:for="{{history}}" wx:key="{{index}}" class="history-item">
+              <image class="time" src="../../images/search/history.png" />
+              {{item.topicName}}
+              <!-- <image class="delete" src="../../images/search/history_delete.png" /> -->
+            </view>
+          </block>
+          <block wx:else>未登录或暂无历史记录！</block>
+        </view>
+      </view>
+      <view class="hotTopic">
+        <view class="hotTopic-title">热门话题榜</view>
+        <view class="hotTopic-list">
+          <block wx:if="{{hotTopic.length!==0}}">
+            <view class="hotTopic-item clearfix" bindtap="goTopicDtl" data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{hotTopic}}" wx:key="{{index}}">
+              <view class="order">
+                <block wx:if="{{index<3}}">
+                  <image src="../../images/search/icon_order_{{index}}.png" />
+                </block>
+                <block wx:else>{{index+1}}</block>
+              </view>
+              <view class="middle">
+                <view class="middle-title">#{{item.topicName}}#</view>
+                <view class="middle-count">
+                  <text class="read" style="margin-right:20px;">阅读：{{utils.numToChinese(item.viewCount)}}</text>
+                  <text class="talk">讨论：{{utils.numToChinese(item.talkCount)}}</text>
+                </view>
+              </view>
+              <view class="focus">
+                <image catchtap="focusTopic" data-i="{{index}}" data-id="{{item.id}}" data-type="{{item.follow?'unFollow':'follow'}}" src="../../images/search/focus{{item.follow?'_sel':''}}.png" />
+              </view>
+            </view>
+          </block>
+          <block wx:else><blank></blank></block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

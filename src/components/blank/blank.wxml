@@ -1,0 +1,5 @@
+<!-- index.wxml -->
+<view class="blank">
+  <view class="blank-img"></view>
+  <view class="blank-tit">这里什么都没有 Σ( ° △ °|||)︴</view>
+</view>

@@ -1,0 +1,24 @@
+<view class="container">
+  <back iconColor="black" background="#FFDE55">关注</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight}}px;">
+    <view class="nav" bindtap='selChange'>
+      <view data-cur="{{0}}" class="nav-common {{cur===0?'sel':''}}">话题</view>
+      <view data-cur="{{1}}" class="nav-common {{cur===1?'sel':''}}">人</view>
+      <view data-cur="{{2}}" class="nav-common {{cur===2?'sel':''}}">粉丝</view>
+      <view class="nav-line sel{{cur}}"></view>
+    </view>
+    <view class="list">
+      <block wx:if="{{cur===0}}">
+        <focusList list="{{topic}}"></focusList>
+      </block>
+      <block wx:elif="{{cur===1}}">
+        <view class="hope"></view>
+        <!-- <focusList listType="{{2}}" list="{{user}}"></focusList> -->
+      </block>
+      <block wx:else="{{cur===2}}">
+        <view class="hope"></view>
+        <!-- <focusList listType="{{3}}" list="{{fans}}"></focusList> -->
+      </block>
+    </view>
+  </view>
+</view>

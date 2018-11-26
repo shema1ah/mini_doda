@@ -1,0 +1,71 @@
+<open wx:if="{{ad}}"></open>
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <view class="logo" style="margin-top:{{systemHeight}}px;">哆哒 | DODA</view>
+  <scroll-view class="game">
+    <form class="login" report-submit="true" bindsubmit="formSubmit">
+      <button class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+        <view class="item" wx:for="{{game}}" wx:key="index" style="{{item.coverImage ? 'background-image:url('+item.coverImage+');background-size:cover;':''}}" data-id="{{item.id}}" data-action="goDetail">
+          <view class="item-content clearfix" data-id="{{item.id}}" data-action="goDetail">
+            <view class="item-content-left" data-id="{{item.id}}" data-action="goDetail">
+              <view class="item-content-left-name" data-id="{{item.id}}" data-action="goDetail">{{item.name}}</view>
+              <view class="item-content-left-des" data-id="{{item.id}}" data-action="goDetail">{{item.summary}}</view>
+            </view>
+            <view class="item-content-right" data-id="{{item.id}}" data-action="goDetail">
+              <view class="item-content-right-like">
+                <view class="zan {{item.favour?'favour on':''}}" data-action="like" data-i="{{index}}" data-id='{{item.id}}'></view>
+                <view class="count">{{utils.numToChinese(item.favourCount)}}</view>
+              </view>
+              <view class="item-content-right-play" hover-class="press">
+                <view class="play" wx:if="{{item.state != 0}}">
+                  <text>{{item.state==1?'更新维护':'敬请期待'}}</text>
+                </view>
+                <view class="play" wx:else>
+                  <text wx:if="{{(item.playType==0 && item.onlineUrl == '') ||item.playType==2}}">敬请期待
+                  </text>
+                  <view wx:else class="play" data-obj='{{item}}' data-action="{{item.playType==0?'openWeb':'openMiniapp'}}">传送门
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </button>
+    </form>
+  </scroll-view>
+  <view class="noticeBtn" hover-class="press" bindtap="switchNotice">
+    <image src="../../images/notice.png"/>
+  </view>
+  <view class="notice" wx:if="{{noticeShow}}">
+    <view class="notice-center {{noticeShow?'bounceIn':''}}">
+      <view class="notice-close" bindtap="switchNotice">
+        <image src="../../images/close.png" />
+      </view>
+      <view class="notice-top">
+        {{notice.title}}
+      </view>
+      <view class="notice-middle">
+        {{notice.content}}
+      </view>
+      <view class="notice-bottom"></view>
+    </view>
+  </view>
+  <view class="checkIn {{checkIn?'checkOpacity':''}}" hover-class="press" wx:if="{{checkIn}}">
+    <view class="main {{checkIn?'bounceIn':''}}">
+      <view class="main-title">
+        已经连续签到<text class="main-day">{{checkCount}}</text>天
+      </view>
+      <view class="main-rule" bindtap="goRule">签到规则</view>
+      <view class="main-list clearfix">
+        <view class="main-item {{utils.checkInDay(index,checkCount)}}" wx:for="{{checkInData}}" wx:key="{{index}}">
+          <view class="main-item-img">
+            <image src="../../images/check_energy.png" />
+            <view class="main-item-count">{{item.count}}</view>
+          </view>
+          <view class="main-item-name">{{item.name}}</view>
+        </view>
+      </view>
+      <view class="main-btn" bindtap="closeCheckIn">知道了，退下吧</view>
+    </view>
+  </view>
+</view>

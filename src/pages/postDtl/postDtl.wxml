@@ -1,0 +1,84 @@
+<open wx:if="{{ad}}"></open>
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back iconColor="black" background="#fff"></back>
+  <form class="login" bindsubmit="formSubmit" report-submit="ture">
+    <button hover-class="none" class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      <view class="header" style="padding-top:{{systemHeight+navHeight}}px;">
+        <view class="post">
+          <view class="top clearfix">
+            <view class="top-cover">
+              <image src="{{post.user.avatar}}" />
+            </view>
+            <view class="top-middle">
+              <view class="top-name">{{post.user.nickname}}</view>
+              <view class="top-time">{{utils.formatTimeFull(post.time)}}</view>
+            </view>
+            <view class="top-focus">
+              <block wx:if="{{post.follow}}">
+                <image data-action="focusUser" data-id="{{post.user.id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+              </block>
+              <block wx:else>
+                <image data-action="focusUser" data-id="{{post.user.id}}" data-type="follow" src="../../images/search/focus.png" />
+              </block>
+            </view>
+          </view>
+          <view class="main">
+            <view class="main-title">{{post.title}}</view>
+            <view class="main-content">
+              <text class="main-content-topic" data-action="goTopicDtl" data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{post.topics}}" wx:key="{{index}}">#{{item.topicName}}#</text>{{post.content}}
+            </view>
+            <view class="main-imgs">
+              <image mode='widthFix' src="{{img.picUrl}}" wx:for="{{post.pictures}}" wx:for-item="img" wx:key="{{index}}" />
+            </view>
+          </view>
+          <view class="middle clearfix">
+            <view class="elite" wx:if="{{post.enlighten}}">
+              <image src="../../images/square/elite.png" />
+            </view>
+            <view class="btn">
+              <view class="btn-common">
+                <image style="height:13px;" src="../../images/square/eye.png" />
+                {{utils.numToChinese(post.scanCount)}}
+              </view>
+              <view class="btn-common"  data-action="postAction" data-type="favorite">
+                <image src="../../images/square/collect{{post.favorite?'_sel':''}}.png" />
+                {{utils.numToChinese(post.favoriteCount)}}
+              </view>
+              <view class="btn-common" data-action="postAction" data-type="favour">
+                <image src="../../images/square/like{{post.favour?'_sel':''}}.png" />
+                {{utils.numToChinese(post.favourCount)}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="comment">
+          <view class="comment-tip">
+            <view class="comment-tip-title">评论</view>
+            <view class="comment-tip-order" data-action='orderByTime' hover-class="press">
+              <image data-action='orderByTime' src="../../images/detail/order.png" />
+              按{{commentsQuery.orderType==0?'时间':'热度'}}
+            </view>
+          </view>
+          <comment list="{{comments}}"></comment>
+        </view>
+      </view>
+      <view class="footer clearfix {{iphoneX?'iphoneX':''}}">
+        <!-- 收藏 -->
+        <view class="collect clearfix" hover-class="detailPress" data-action="postAction" data-type="favorite">
+          <image src="../../images/detail/collect{{post.favorite?'_sel':''}}.png"/>
+          <view class="footer-text" data-action="postAction" data-type="favorite">收藏</view>
+        </view>
+        <!-- 评论 -->
+        <view class="comment clearfix" hover-class="detailPress" data-action='focus'>
+          <image src="../../images/detail/comment.png" />
+          <view data-action='focus' class="footer-text">评论</view>
+        </view>
+      </view>
+      <view class="talk clearfix {{focus?'focus':''}}">
+        <view class="talk-send" hover-class="press" catchtap="comment">发表</view>
+        <input class="talk-input" value="{{content}}" cursor-spacing="8" placeholder='说点什么吧~' focus="{{focus}}" confirm-type="send" bindinput="input" bindblur="inputBlur" bindconfirm="comment" />
+      </view>
+    </button>
+  </form>
+</view>

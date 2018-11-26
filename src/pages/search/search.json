@@ -1,0 +1,7 @@
+{
+	"usingComponents":{
+    "post":"../../components/post/post",
+    "focusList":"../../components/focusList/focusList",
+    "blank":"../../components/blank/blank"
+  }
+}

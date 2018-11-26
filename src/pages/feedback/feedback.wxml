@@ -1,0 +1,16 @@
+<view class="container">
+  <back iconColor="black" background="#FFDE55">意见反馈</back>
+  <view class="top" style="padding-top:{{systemHeight+navHeight+6}}px;">
+    <view class="content">
+      <textarea maxlength="{{3000}}" bindfocus="textfocus" bindblur="textblur" bindinput="textInput" value="{{text}}" focus="{{textFocus}}" placeholder="输入你遇到的问题（至少5个字）"></textarea>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="phone">
+    <view class="phone-title">联系方式</view>
+    <view class="phone-comment">
+      <input placeholder="方便我们与您联系（电话/QQ/微信 可不填)" maxlength="{{30}}" bindfocus="titfocus" bindblur="titblur" value="{{title}}" focus="{{titleFocus}}" confirm-type="done" bindinput="titInput" bindconfirm="titconfirm" />
+    </view>
+  </view>
+  <button class="publish resetBtn" hover-class="press" bindtap='putFeedback'>提交</button>
+</view>

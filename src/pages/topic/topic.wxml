@@ -1,0 +1,53 @@
+<open wx:if="{{ad}}"></open>
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back opacity="{{backOpacity}}"></back>
+  <form class="login" bindsubmit="formSubmit" report-submit="ture">
+    <button class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      <view class="header">
+        <view class="header-image" style="background-image:url({{topic.avgUrl}})"></view>
+        <view class="title clearfix">
+          <view class="left">
+            <view class="left-name">{{name}}</view>
+            <view class="left-count">
+              <text style="margin-right:30px">阅读：{{utils.numToChinese(topic.viewCount)}}</text>
+              <text>讨论：{{utils.numToChinese(topic.talkCount)}}</text>
+            </view>
+          </view>
+          <view class="right">
+            <view class="right-focus">
+              <block wx:if="{{topic.follow}}">
+                <image data-action="focusTopic" data-id="{{topic.id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+              </block>
+              <block wx:else>
+                <image data-action="focusTopic" data-id="{{topic.id}}" data-type="follow" src="../../images/search/focus.png" />
+              </block>
+            </view>
+            <view class="right-play" wx:if="{{topic.topicType===0&&topic.topicContent!==null}}">
+              <image data-action="openWeb" data- src="../../images/icon_play.png" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </button>
+  </form>
+  <view class="main">
+    <view class="nav" bindtap='selChange'>
+      <view data-cur="{{0}}" class="nav-common {{cur===0?'sel':''}}">推荐</view>
+      <view data-cur="{{1}}" class="nav-common {{cur===1?'sel':''}}">全部</view>
+      <view data-cur="{{2}}" class="nav-common {{cur===2?'sel':''}}">精华</view>
+      <view class="nav-line sel{{cur}}"></view>
+    </view>
+    <view class="list">
+      <block wx:if="{{cur===0}}">
+        <post bind:postCb="postCb" list="{{recm}}"></post>
+      </block>
+      <block wx:elif="{{cur===1}}">
+        <post bind:postCb="postCb" list="{{all}}"></post>
+      </block>
+      <block wx:else="{{cur===2}}">
+        <post bind:postCb="postCb" list="{{elite}}"></post>
+      </block>
+    </view>
+  </view>
+</view>

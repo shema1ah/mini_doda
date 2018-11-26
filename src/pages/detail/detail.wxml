@@ -1,0 +1,97 @@
+<open wx:if="{{ad}}"></open>
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back opacity="{{backOpacity}}"></back>
+  <form class="login" bindsubmit="formSubmit" report-submit="ture">
+    <button class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      <view class="header">
+        <swiper class="swiper" circular="{{true}}" autoplay="{{true}}" skip-hidden-item-layout="{{true}}" interval="{{3000}}" duration="{{500}}">
+          <block wx:for="{{game.images}}" wx:key="{{index}}">
+            <swiper-item>
+              <view class="swiper-image" style="background-image:url({{item.image}})"></view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="title">
+          <view class="title-left">{{game.name}}</view>
+          <view class="title-right" data-action="like">
+            <view class="zan {{game.favour?'favour on':''}}" data-action="like"></view>
+            <view class="count" data-action="like">{{utils.numToChinese(game.favourCount)}}</view>
+          </view>
+        </view>
+        <view class="desc">
+          <view class="desc-header clearfix">
+            <view class="desc-icon">
+              <image src="{{game.icon}}" />
+            </view>
+            <view class="desc-middle">
+              <view class="desc-title">{{game.name}}</view>
+              <view class="desc-rate">
+                <image src='../../images/detail/star.png' />
+                {{game.rate}}分
+              </view>
+            </view>
+            <view class="desc-goTopic">
+              <image data-action="goTopicDtl" data-id="{{game.topicId}}" data-name="{{game.name}}" src="../../images/detail/topic.png" />
+            </view>
+          </view>
+          <view class="content">{{game.des}}</view>
+        </view>
+        <!-- <view class="comment">
+          <view class="comment-tip">
+            <view class="comment-tip-title">评论</view>
+            <view class="comment-tip-order" data-action='orderBy' hover-class="press">
+              <image src="../../images/detail/order.png" />
+              按时间
+            </view>
+          </view>
+          <view class="comment-list">
+            <view class="comment-item clearfix" wx:for="{{comments}}" wx:key="index">
+              <view class="avatar">
+                <image src="{{item.user.avatar}}" />
+              </view>
+              <view class="name">{{item.user.nickname}}</view>
+              <view class="time">{{utils.getDateDiff(item.time)}}</view>
+              <view class="content">{{item.content}}</view>
+            </view>
+            <view class="noMore" wx:if="{{noMore}}">暂时没有更多了哦 ···</view>
+          </view>
+        </view> -->
+        <view class="comment">
+          <view class="comment-tip">
+            <view class="comment-tip-title">评论</view>
+            <view class="comment-tip-order" data-action='orderByTime' hover-class="press">
+              <image src="../../images/detail/order.png" />
+              按时间
+            </view>
+          </view>
+          <comment gameId="{{id}}" listType="old" list="{{comments}}"></comment>
+        </view>
+      </view>
+      <view class="footer clearfix {{iphoneX?'iphoneX':''}}">
+        <!-- 玩 -->
+        <view class="play" wx:if="{{game.state === 0}}">
+          <view class="water1"></view>
+          <!-- <view class="water3"></view> -->
+          <view class="play-btn" data-action="{{game.playType==0?'openWeb':'openMiniapp'}}">
+            <image data-action="{{game.playType==0?'openWeb':'openMiniapp'}}" src="../../images/detail/play.png" />
+          </view>
+        </view>
+        <!-- 收藏 -->
+        <view class="collect clearfix" hover-class="detailPress" data-action='collect'>
+          <image src="../../images/detail/collect{{game.favorite?'_sel':''}}.png" data-action='collect' />
+          <view class="footer-text" data-action='collect'>收藏</view>
+        </view>
+        <!-- 评论 -->
+        <view class="comment clearfix" hover-class="detailPress" data-action='focus'>
+          <image data-action='focus' src="../../images/detail/comment.png" />
+          <view data-action='focus' class="footer-text">评论</view>
+        </view>
+      </view>
+      <view class="talk clearfix {{focus?'focus':''}}">
+        <view class="talk-send" hover-class="press" catchtap="comment">发表</view>
+        <input class="talk-input" value="{{content}}" cursor-spacing="8" placeholder='说点什么吧~' focus="{{focus}}" confirm-type="send" bindinput="input" bindblur="inputBlur" bindconfirm="comment" />
+      </view>
+    </button>
+  </form>
+</view>

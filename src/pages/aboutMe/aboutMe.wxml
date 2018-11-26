@@ -1,0 +1,12 @@
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back iconColor="black" background="#FFDE55">关于哆哒</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight}}px;">
+    <view class="logo">
+      <image src="../../images/logo.png" />
+    </view>
+    <view class="name">哆哒</view>
+    <view class="version">版本：V2.0.1</view>
+    <view class="tip">北京阿基米游网络科技有限公司</view>
+  </view>
+</view>

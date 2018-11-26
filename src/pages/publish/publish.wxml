@@ -1,0 +1,9 @@
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back iconColor="black" background="#FFDE55">我发布的</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight}}px;">
+    <view class="list">
+      <post bind:postCb="postCb" list="{{post}}"></post>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<view class="container">
+  <back background="#FFDE55">编辑帖子</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight+6}}px;">
+    <view class="title">
+      <input placeholder="请输入标题" maxlength="{{25}}" bindfocus="titfocus" bindblur="titblur" value="{{title}}" focus="{{titleFocus}}" confirm-type="done" bindinput="titInput" bindconfirm="titconfirm"/>
+      <view class="title-num">{{titNum}}/25</view>
+    </view>
+    <view class="content">
+      <input maxlength="{{3000}}" bindfocus="textfocus" bindblur="textblur" bindinput="textInput" value="{{text}}" focus="{{textFocus}}" placeholder="你想讨论的内容" />
+    </view>
+    <view class="imgs clearfix">
+      <view class="img" wx:for="{{images}}" wx:key="{{index}}">
+        <image class="delete" src="../../images/bt_delete.png" />
+        <image src="{{item}}" />
+      </view>
+      <image class="add" wx:if="{{images.length<6}}" src="../../images/img_add.png" />
+    </view>
+    <button class="publish resetBtn">发布</button>
+  </view>
+</view>

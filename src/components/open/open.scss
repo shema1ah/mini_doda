@@ -1,0 +1,32 @@
+.open {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  z-index: 99;
+
+  .time {
+    position: absolute;
+    top: 135px;
+    right: 22px;
+    width: 220px;
+    line-height: 62px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, .4);
+    text-align: center;
+    font-size: 26px;
+    color: white;
+
+    &.iphonex {
+      top: 180px;
+    }
+
+    .close {
+      display: inline-block;
+      width: 60px;
+    }
+  }
+}

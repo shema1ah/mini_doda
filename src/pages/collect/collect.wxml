@@ -1,0 +1,34 @@
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="container">
+  <back iconColor="black" background="#FFDE55">{{title}}</back>
+  <view class="main" style="padding-top:{{systemHeight+navHeight}}px;">
+    <view class="nav" bindtap='selChange'>
+      <view data-cur="{{0}}" class="nav-common {{cur===0?'sel':''}}">作品</view>
+      <view data-cur="{{1}}" class="nav-common {{cur===1?'sel':''}}">帖子</view>
+      <view class="nav-line sel{{cur}}"></view>
+    </view>
+    <view class="list">
+      <block wx:if="{{cur===0}}">
+        <view class="works clearfix">
+          <block wx:if="{{works.length===0}}"><blank></blank></block>
+          <block wx:else>
+            <view class="item" bindtap="goDetail" data-id="{{item.id}}" wx:for="{{works}}" wx:key="{{index}}" style="background-image:url({{item.coverImage}})">
+              <view class="title clearfix">
+                <view class="title-left">{{item.name}}</view>
+                <view class="title-right" catchtap="like" data-i="{{index}}" data-id="{{item.id}}">
+                  <view class="like">
+                    <image src="../../images/square/like{{item.favour?'_sel':''}}.png" />
+                  </view>
+                  <view class="count">{{utils.numToChinese(item.favourCount)}}</view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </block>
+      <block wx:elif="{{cur===1}}">
+        <post bind:postCb="postCb" list="{{post}}"></post>
+      </block>
+    </view>
+  </view>
+</view>

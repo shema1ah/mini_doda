@@ -1,0 +1,90 @@
+<!-- index.wxml -->
+<view class="container">
+  <form class="login" report-submit="true" bindsubmit="formSubmit">
+    <button class="loginBtn" hover-class="none" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      <view class="top">
+        <image class="bgi" src="../../images/my/bgi.png" />
+        <view class="userInfo">
+          <view class="avatar">
+            <image src="{{user?user.avatar:'../../images/my/avator.png'}}" />
+          </view>
+          <view class="name">{{user?user.nickname:'未登录'}}</view>
+        </view>
+        <view class="coin clearfix">
+          <view class="coin-common energy">
+            <view class="coin-img">
+              <image src="../../images/my/energy.png" />
+            </view>
+            {{coin.yuanqiCoin}}
+          </view>
+          <view class="coin-common gold">
+            <view class="coin-img">
+              <image src="../../images/my/gold.png" />
+            </view>
+            {{coin.dodaCoin}}
+          </view>
+        </view>
+      </view>
+      <view class="main">
+        <view class="list clearfix">
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="getEnergy" hover-class="press">
+              <image data-action="go" data-path="getEnergy" src="../../images/my/getEnergy.png" />
+              <view data-action="go" data-path="getEnergy" class="name">赚能量</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="focus" hover-class="press">
+              <image data-action="go" data-path="focus" src="../../images/my/focus.png" />
+              <view class="name" data-action="go" data-path="focus">关注</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="collect" hover-class="press">
+              <image data-path="collect" data-action="go" src="../../images/my/collect.png" />
+              <view class="name" data-action="go" data-path="collect">我的收藏</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="publish" hover-class="press">
+              <image data-path="publish" data-action="go" src="../../images/my/publish.png" />
+              <view class="name" data-action="go" data-path="publish">我发布的</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="setting" hover-class="press">
+              <image data-path="setting" data-action="go" src="../../images/my/set.png" />
+              <view data-path="setting" data-action="go" class="name">设置</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" data-action="go" data-path="pay" hover-class="press">
+              <image data-action="go" data-path="pay" src="../../images/my/pay.png" />
+              <view data-action="go" data-path="pay" class="name">充值</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" hover-class="press">
+              <image class="no" src="../../images/my/foot.png" />
+              <view class="name">我的足迹</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" hover-class="press">
+              <image class="no" src="../../images/my/shop.png" />
+              <view class="name">商城</view>
+            </view>
+          </view>
+          <view class="list-common">
+            <view class="list-common-content" hover-class="press">
+              <image class="no" src="../../images/my/award.png" />
+              <view class="name">抽奖</view>
+            </view>
+          </view>
+          <view class="line1"></view>
+          <view class="line2"></view>
+        </view>
+      </view>
+    </button>
+  </form>
+</view>

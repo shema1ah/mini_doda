@@ -1,0 +1,53 @@
+<!-- post.wxml -->
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="comment">
+  <block wx:if="{{list.length!==0}}">
+    <view class="item" wx:for="{{list}}" wx:key="{{index}}">
+      <view class="header clearfix">
+        <view class="header-cover">
+          <image src="{{item.user.avatar}}" />
+        </view>
+        <view class="header-middle">
+          <view class="header-name">{{item.user.nickname}}</view>
+          <view class="header-time">{{utils.formatTimeFull(item.time)}}</view>
+        </view>
+        <view class="header-count" catchtap="favour_comment" data-i="{{index}}" data-favour="{{item.favour}}" data-id="{{item.id}}">
+          <block wx:if="{{item.favour}}"><image catchtap="favour_comment" data-i="{{index}}" data-favour="{{1}}" data-id="{{item.id}}" src="../../images/square/like_sel.png" /></block>
+          <block wx:else><image catchtap="favour_comment" data-i="{{index}}" data-favour="{{0}}" data-id="{{item.id}}" src="../../images/square/like.png" /></block>
+          {{utils.numToChinese(item.favourCount)}}
+        </view>
+      </view>
+      <view class="comment-content">
+        <view class="main">
+          <view class="main-content">{{item.content}}</view>
+          <view class="main-imgs {{item.image.length>1?'moreOne':''}}">
+            <block wx:if="{{item.image.length===1}}">
+              <image class="one" src="{{item.image[0].src}}" />
+            </block>
+            <block wx:else="{{item.image.length>1}}">
+              <image class="more" src="{{img.src}}" wx:for="{{item.image}}" wx:for-item="img" wx:key="{{index}}" />
+            </block>
+            <view class="imgTip" wx:if="{{item.image.length>2}}">共{{item.image.length}}张</view>
+          </view>
+        </view>
+        <!-- <view class="reply" >
+                    <block wx:for="{{item.reply}}" wx:for-item="reply" wx:key="{{index}}">
+                      <view class="reply-item">
+                        <text class="reply-name">{{reply.name}} :</text>
+                        <block wx:if="{{reply.contnet!==''}}" class="reply-content">
+                          {{reply.contnet}}
+                        </block>
+                        <block wx:else>
+                          <image src="../../images/square/img.png" />
+                        </block>
+                      </view>
+                    </block>
+                    <view class="reply-tip">全部{{item.reply.length}}条回复></view>
+                  </view> -->
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <blank></blank>
+  </block>
+</view>

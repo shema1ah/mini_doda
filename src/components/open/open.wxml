@@ -1,0 +1,7 @@
+<!-- index.wxml -->
+<view wx:if="{{show}}" bindtap="go" class="open" style="background-image:url('{{img}}');">
+  <view class="time {{isIphoneX?'iphonex':''}}" >
+    {{openTime}}S后自动 |
+    <view class="close" catchtap='close' >关闭</view>
+  </view>
+</view>

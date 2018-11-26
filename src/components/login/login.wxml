@@ -1,0 +1,11 @@
+<!-- index.wxml -->
+<form class="login" report-submit="true" bindsubmit="formSubmit">
+  <button class="login-btn" 
+  formType="submit" 
+  bindtap="handleEvent" 
+  open-type="getUserInfo" 
+  bindgetuserinfo="getUserInfo"
+  >
+    <slot></slot>
+  </button>
+</form>

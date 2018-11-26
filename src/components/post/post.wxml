@@ -1,0 +1,77 @@
+<!-- post.wxml -->
+<wxs  src="../../utils/utils.wxs" module="utils"></wxs>
+<view class="list" catchtap="stopBubble">
+  <block wx:if="{{list.length!==0}}">
+    <form class="login" bindsubmit="formSubmit" report-submit="ture">
+      <button hover-class="none" class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+        <view class="item" wx:for="{{list}}" wx:key="{{index}}">
+          <view class="header clearfix">
+            <view class="header-cover">
+              <image src="{{item.user.avatar}}" />
+            </view>
+            <view class="header-middle">
+              <view class="header-name">{{item.user.nickname||item.user.id}}</view>
+              <view class="header-time">{{utils.formatTimeFull(item.time)}}</view>
+            </view>
+            <view class="header-count" data-action="goPostDtl" data-id="{{item.id}}">
+              <image src="../../images/square/eye.png" />
+              {{utils.numToChinese(item.scanCount)}}
+            </view>
+          </view>
+          <view class="main" data-action="goPostDtl" data-id="{{item.id}}">
+            <view class="main-title">{{item.title}}</view>
+            <view class="main-content" data-action="goPostDtl" data-id="{{item.id}}">
+              <text class="main-content-topic" data-action="goTopicDtl" wx:for-item="topic" data-id="{{topic.id}}" data-name="{{topic.topicName}}" wx:for="{{item.topics}}" wx:key="{{index}}">#{{topic.topicName}}#</text>{{item.content}}
+              </view>
+            <view class="main-imgs {{item.pictures.length>1?'moreOne':''}}">
+              <block wx:if="{{item.pictures.length===1}}">
+                <image class="one" mode="aspectFill" src="{{item.pictures[0].picUrl}}" />
+              </block>
+              <block wx:else="{{item.pictures.length>1}}">
+                <image class="more" mode="aspectFill" src="{{img.picUrl}}" wx:for="{{item.pictures}}" wx:for-item="img" wx:key="{{index}}" />
+              </block>
+              <view class="imgTip" wx:if="{{item.pictures.length>2}}">共{{item.pictures.length}}张</view>
+            </view>
+          </view>
+          <view class="middle clearfix" data-action="goPostDtl" data-id="{{item.id}}">
+            <view class="elite" wx:if="{{item.enlighten}}">
+              <image src="../../images/square/elite.png" />
+            </view>
+            <view class="btn">
+              <button class="resetBtn btn-common shareBtn" data-i="{{index}}" data-id="{{item.id}}" open-type="share">
+                <image src="../../images/square/share{{item.share?'_sel':''}}.png" />
+                {{utils.numToChinese(item.shareCount)}}
+              </button>
+              <view class="btn-common" data-action="postAction" data-i="{{index}}" data-id="{{item.id}}" data-type="favorite">
+                <image src="../../images/square/collect{{item.favorite?'_sel':''}}.png" />
+                {{utils.numToChinese(item.favoriteCount)}}
+              </view>
+              <view class="btn-common" data-action="postAction" data-i="{{index}}" data-id="{{item.id}}" data-type="favour">
+                <image src="../../images/square/like{{item.favour?'_sel':''}}.png" />
+                {{utils.numToChinese(item.favourCount)}}
+              </view>
+            </view>
+          </view>
+          <view class="reply" data-action="goPostDtl" data-id="{{item.id}}" wx:if="{{item.comments.length!==0}}" >
+            <block wx:for="{{item.comments}}" wx:for-item="reply" wx:key="{{index}}">
+              <view class="reply-item" data-action="goPostDtl" data-id="{{item.id}}">
+                <text class="reply-name">{{reply.user.nickname||'暂无名字'}} : </text>
+                <block wx:if="{{reply.content!==''}}" class="reply-content">
+                  {{reply.content}}
+                </block>
+                <block wx:else>
+                  <image src="../../images/square/img.png" />
+                </block>
+              </view>
+            </block>
+            <view class="reply-tip" wx:if="{{item.commentCount>2}}" data-action="goPostDtl" data-id="{{item.id}}">全部{{utils.numToChinese(item.commentCount)}}条回复></view>
+          </view>
+        </view>
+      </button>
+    </form>
+  </block>
+  <block wx:else><view class="blank">
+  <view class="blank-img"></view>
+  <view class="blank-tit">这里什么都没有 Σ( ° △ °|||)︴</view>
+</view></block>
+</view>

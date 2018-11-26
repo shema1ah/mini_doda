@@ -1,0 +1,183 @@
+<!-- <open wx:if="{{ad}}"></open> -->
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<!-- index.wxml -->
+<view class="container" style="padding-top:{{systemHeight+navHeight+6}}px;">
+  <form class="login" report-submit="true" bindsubmit="formSubmit">
+    <button hover-class="none" class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      <view class="top" catchtouchmove="stopBubble" style="padding-top:{{systemHeight}}px;height:{{systemHeight+navHeight+6}}px;line-height:{{navHeight}}px">
+        <view class="top-common" catchtouchmove="stopBubble" hover-class="press" data-action="goSearch">
+          <view class="search-content">
+            <image data-action="goSearch" src="../../images/square/search.png" />
+          </view>
+        </view>
+        <view class="top-common {{cur===0?'sel':''}}" catchtouchmove="stopBubble" data-cur="{{0}}" data-action="cur" bindtap='selChange'>关注
+        </view>
+        <view class="top-common {{cur===1?'sel':''}}" catchtouchmove="stopBubble" data-cur="{{1}}" data-action="cur" bindtap='selChange'>推荐
+        </view>
+        <view class="top-common {{cur===2?'sel':''}}" catchtouchmove="stopBubble" data-cur="{{2}}" data-action="cur" bindtap='selChange'>人气榜
+        </view>
+        <view class="line sel{{cur}}"></view>
+        <view class="catchLine" catchtouchmove="stopBubble"></view>
+      </view>
+      <view class="swiper">
+        <block wx:if="{{cur===0}}">
+          <post bind:postCb="postCb" list="{{focusPost}}"></post>
+        </block>
+        <block wx:elif="{{cur===1}}">
+          <view class="recommend">
+            <view class="recommend-top">
+              <view class="recommend-top-header clearfix">推荐话题
+                <view class="hotToipc" hover-class="press" data-action="goSearch">热门话题></view>
+              </view>
+              <view class="recommend-top-content clearfix">
+                <view wx:for="{{recmTopic}}" data-action="goTopicDtl" data-id="{{item.id}}" data-name="{{item.topicName}}" wx:key="{{index}}" class="recommend-top-item">#{{item.topicName}}#</view>
+              </view>
+            </view>
+            <post bind:postCb="postCb" list="{{recmPost}}"></post>
+          </view>
+        </block>
+        <block wx:else="{{cur===2}}">
+          <view class="hotList">
+            <view class="hotList-left" catchtouchmove="stopBubble">
+              <view bindtap="navChange" data-i="{{index}}" data-action="cur" class="nav {{navCur===index?'sel':''}}" wx:for="{{navList}}" wx:key="{{index}}">
+                <view class="nav-icon" data-action="cur">
+                  <image data-action="cur" src="{{item.src}}" />
+                </view>
+                <view class="nav-name" data-action="cur">{{item.name}}</view>
+              </view>
+            </view>
+            <view class="hotList-right">
+              <block wx:if="{{navCur===0}}">
+                <scroll-view scroll-y class="works" lower-threshold="{{80}}" bindscrolltolower="refreshData">
+                  <view class="header">
+                    <view class="order">
+                      <image src="../../images/square/icon_orderRoute_0.png" />
+                    </view>
+                    <view class="header-cover">
+                      <image src="{{hot_works[0].avgUrl}}" />
+                    </view>
+                    <view class="header-title">{{hot_works[0].topicName}}占领了封面</view>
+                    <view class="header-btn">
+                      <block wx:if="{{hot_works[0].follow}}">
+                        <image data-action="focusTopic" data-i="{{0}}" data-id="{{hot_works[0].id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+                      </block>
+                      <block wx:else>
+                        <image data-action="focusTopic" data-i="{{0}}" data-id="{{hot_works[0].id}}" data-type="follow" src="../../images/search/focus.png" />
+                      </block>
+                    </view>
+                  </view>
+                  <view class="main">
+                    <view class="main-top clearfix">
+                      <view class="main-top-title">
+                        {{utils.orderTime(hot_works[0].timeString)}}（上周排行）
+                      </view>
+                      <view class="order" data-action="goRule">排行规则</view>
+                    </view>
+                    <view class="list">
+                      <block wx:if="{{hot_works.length!==0}}">
+                        <view class="item clearfix" data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{hot_works}}" wx:key="{{index}}">
+                          <view class="item-cover">
+                            <image data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" src="{{item.avgUrl}}" />
+                          </view>
+                          <view wx:if="{{index<3}}" class="item-order">
+                            <image data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" src="../../images/square/icon_orderRoute_{{index}}.png" />
+                          </view>
+                          <view class="item-content" data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}">
+                            <view class="item-name">{{item.topicName}}</view>
+                            <view class="item-count">
+                              <text style="margin-right:20px">阅读：{{item.viewCount}}</text>
+                              <text>讨论：{{item.talkCount}}</text>
+                            </view>
+                            <view class="item-btn">
+                              <block wx:if="{{item.follow}}">
+                                <image data-action="focusTopic" data-i="{{index}}" data-id="{{item.id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+                              </block>
+                              <block wx:else>
+                                <image data-action="focusTopic" data-i="{{index}}" data-id="{{item.id}}" data-type="follow" src="../../images/search/focus.png" />
+                              </block>
+                            </view>
+                          </view>
+                        </view>
+                      </block>
+                      <block wx:else>
+                        <view class="blank">
+                          <view class="blank-img"></view>
+                          <view class="blank-tit">这里什么都没有 Σ( ° △ °|||)︴</view>
+                        </view>
+                      </block>
+                    </view>
+                  </view>
+                </scroll-view>
+              </block>
+              <block wx:else>
+                <scroll-view scroll-y class="user" lower-threshold="{{80}}" bindscrolltolower="refreshData">
+                  <view class="header">
+                    <view class="order">
+                      <image src="../../images/square/icon_orderRoute_0.png" />
+                    </view>
+                    <view class="header-cover">
+                      <image src="{{hot_role[0].avgUrl}}" />
+                    </view>
+                    <view class="header-title">{{hot_role[0].topicName}}占领了封面</view>
+                    <view class="header-btn">
+                      <block wx:if="{{hot_role[0].follow}}">
+                        <image data-action="focusTopic" data-i="{{0}}" data-id="{{hot_role[0].id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+                      </block>
+                      <block wx:else>
+                        <image data-action="focusTopic" data-i="{{0}}" data-id="{{hot_role[0].id}}" data-type="follow" src="../../images/search/focus.png" />
+                      </block>
+                    </view>
+                  </view>
+                  <view class="main">
+                    <view class="main-top clearfix">
+                      <view class="main-top-title">
+                        {{utils.orderTime(hot_role[0].timeString)}}（上周排行）
+                      </view>
+                      <view class="order"  data-action="goRule">排行规则</view>
+                    </view>
+                    <view class="list">
+                      <block wx:if="{{hot_role.length!==0}}">
+                        <view class="item clearfix" data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{hot_role}}" wx:key="{{index}}">
+                          <view class="item-cover">
+                            <image data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" src="{{item.avgUrl}}" />
+                          </view>
+                          <view wx:if="{{index<3}}" class="item-order">
+                            <image data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}"  src="../../images/square/icon_orderRoute_{{index}}.png" />
+                          </view>
+                          <view class="item-content" data-action='goTopicDtl' data-id="{{item.id}}" data-name="{{item.topicName}}" >
+                            <view class="item-name">{{item.topicName}}</view>
+                            <view class="item-count">
+                              <text style="margin-right:20px">阅读：{{item.viewCount}}</text>
+                              <text>讨论：{{item.talkCount}}</text>
+                            </view>
+                            <view class="item-btn">
+                              <block wx:if="{{item.follow}}">
+                                <image data-action="focusTopic" data-i="{{index}}" data-id="{{item.id}}" data-type="unFollow" src="../../images/search/focus_sel.png" />
+                              </block>
+                              <block wx:else>
+                                <image data-action="focusTopic" data-i="{{index}}" data-id="{{item.id}}" data-type="follow" src="../../images/search/focus.png" />
+                              </block>
+                            </view>
+                          </view>
+                        </view>
+                      </block>
+                      <block wx:else>
+                        <view class="blank">
+                          <view class="blank-img"></view>
+                          <view class="blank-tit">这里什么都没有 Σ( ° △ °|||)︴</view>
+                        </view>
+                      </block>
+                    </view>
+                  </view>
+                </scroll-view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="icon" data-action="goEdit">
+        <image data-action="goEdit" src="../../images/square/edit.png" />
+      </view>
+    </button>
+  </form>
+</view>

@@ -1,0 +1,32 @@
+<!-- post.wxml -->
+<wxs src="../../utils/utils.wxs" module="utils"></wxs>
+<form wx:if="{{list.length!==0}}" class="login" catchsubmit="formSubmit" report-submit="ture">
+  <button class="loginBtn" formType="submit" bindtap="handleEvent" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+    <view class="focuslist">
+      <view class="focuslist-item clearfix" data-action="goTopicDtl" data-id="{{item.id}}" data-name="{{item.topicName}}" wx:for="{{list}}" wx:key="{{index}}">
+        <view class="cover type{{listType}}">
+          <image wx:if="{{listType===1}}" src="{{item.avgUrl}}" />
+          <image wx:else src="{{item.avatar}}" />
+        </view>
+        <view class="middle">
+          <block wx:if="{{listType===1}}">
+            <view class="middle-title">#{{item.topicName}}#</view>
+            <view class="middle-content">
+              <text class="read" style="margin-right:30px;">阅读：{{utils.numToChinese(item.viewCount)}}</text>
+              <text class="talk">讨论：{{utils.numToChinese(item.talkCount)}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="middle-title">{{item.nickname}}</view>
+            <view class="middle-content">{{item.content}}</view>
+          </block>
+        </view>
+        <view class="focus">
+          <block wx:if="{{item.follow}}"><image data-action="{{listType===1?'focusTopic':'focusUser'}}" data-i="{{index}}" data-id="{{item.id}}" data-type="unFollow" src="../../images/search/focus.png" /></block>
+          <block wx:else><image data-action="{{listType===1?'focusTopic':'focusUser'}}" data-i="{{index}}" data-id="{{item.id}}" data-type="follow" src="../../images/search/focus_sel.png" /></block>
+        </view>
+      </view>
+    </view>
+  </button>
+</form>
+<blank wx:else></blank>

@@ -1,0 +1,26 @@
+<view class="container">
+  <back iconColor="black" background="#FFDE55">赚能量</back>
+  <view class="top" style="padding-top:{{systemHeight+navHeight+6}}px;">
+    <view class="top-icon"><image src="../../images/my/getEnergy.png" /></view>
+    <view class="top-title">当前能量</view>
+    <view class="top-count"><image class="icon-energy" src="../../images/my/energy.png" />{{task.yuanqiCoin}}</view>
+  </view>
+  <view class="line"></view>
+  <view class="task">
+    <view class="task-title">每日任务</view>
+    <view class="task-item clearfix">
+      <view class="task-item-icon">
+        <image src="../../images/square/icon_book.png" />
+      </view>
+      <view class="task-item-title">阅读一部作品 (<image class="icon-energy" src="../../images/my/energy.png" /><text class="count">50</text> )</view>
+      <view class="task-item-btn" hover-class="press"><image bindtap="{{task.viewTask===0?'doTask':(task.viewTask===1?'fetchEnergy':'')}}" data-type="{{0}}" src="../../images/task{{task.viewTask}}.png" /></view>
+    </view>
+    <view class="task-item">
+      <view class="task-item-icon">
+        <image src="../../images/square/icon_user.png" />
+      </view>
+      <view class="task-item-title">邀请3个好友 (<image class="icon-energy" src="../../images/my/energy.png" /><text class="count">100</text> )</view>
+      <view class="task-item-btn" hover-class="press"><image bindtap="{{task.invateTask===0?'doTask':(task.invateTask===1?'fetchEnergy':'')}}" data-type="{{1}}" src="../../images/task{{task.invateTask}}.png" /></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents":{
+    "back":"../../components/goBack/goBack",
+    "focusList":"../../components/focusList/focusList"
+  }
+}

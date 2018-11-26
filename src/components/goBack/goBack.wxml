@@ -1,0 +1,7 @@
+<!-- index.wxml -->
+<view class="goBack" style="padding-top:{{systemHeight}}px;background:linear-gradient(0deg,rgba(26,26,26,0) 0%,rgba(11,11,11,{{0.5+opacity}}) 100%);{{background?'background:'+background:''}}">
+  <view class="goBack-icon" bindtap="goBack" >
+    <image src="../../images/login/back_{{iconColor}}.png"></image>
+  </view>
+  <slot></slot>
+</view>

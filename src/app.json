@@ -1,0 +1,60 @@
+{
+  "pages":[
+    
+    "pages/home/home",
+    "pages/square/square",
+    "pages/my/my",
+    "pages/detail/detail",
+    "pages/search/search",
+    "pages/getEnergy/getEnergy",
+    "pages/focus/focus",
+    "pages/publish/publish",
+    "pages/setting/setting",
+    "pages/collect/collect",
+    "pages/topic/topic",
+    "pages/aboutMe/aboutMe",
+    "pages/feedback/feedback",
+    "pages/postDtl/postDtl",
+    "pages/edit/edit",
+    "pages/web/web"
+  ],
+  "window":{
+    "navigationStyle":"custom",
+    "navigationBarBackgroundColor": "#FFDE55",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
+    "onReachBottomDistance": 200
+  },
+  "tabBar":{
+    "color":"#A0A0A0",
+    "selectedColor":"#4A4A4A",
+    "borderStyle":"#F0EDED",
+    "list":[
+      {
+        "selectedIconPath": "images/tabBar/home_click_icon.png",
+        "iconPath": "images/tabBar/home_icon.png",
+        "pagePath": "pages/home/home",
+        "text": "主页"
+      },
+      {
+        "selectedIconPath": "images/tabBar/square_click_icon.png",
+        "iconPath": "images/tabBar/square_icon.png",
+        "pagePath": "pages/square/square",
+        "text": "广场"
+      },
+      {
+        "selectedIconPath": "images/tabBar/my_click_icon.png",
+        "iconPath": "images/tabBar/my_icon.png",
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx1e02a359f7dd7257",
+    "wx2b62c3d067a51996",
+    "wx689dbdfadae37af3"
+  ]
+}
+
+
